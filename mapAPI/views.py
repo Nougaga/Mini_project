@@ -33,19 +33,19 @@ def path_search(request):
     #-------------------------------------------------------------------------------
     # //네이버맵 연결
     driver.get('https://map.naver.com/v5/directions/-/-/-/mode?c=14107103.1786139,4494701.9630842,15,0,0,0,dh')
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(3)
     #-------------------------------------------------------------------------------
+
     # //자동차 버튼
-    # //자동차 버튼
-    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/ul/li[2]/a').click()
+    driver.find_element(By.CLASS_NAME, 'link_tab.car').click()
     #-------------------------------------------------------------------------------
     # //경유지 추가 버튼
     #-------------------------------------------------------------------------------
-    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
-    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
-    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
-    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
-    driver.find_element_by_xpath('//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div[1]/directions-search/div[2]/button[2]').click()
+    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
     #//리스트값 입력
     click_list = data
     a = len(click_list)
@@ -76,7 +76,8 @@ def path_search(request):
     time.sleep(0.5)
     #--------------------------------------------------------------------------------
     # //길찾기 버튼
-    driver.find_element_by_xpath(
-        '//*[@id="container"]/div[1]/shrinkable-layout/directions-layout/directions-result/div/directions-search/div[2]/button[2]').click()
+    driver.find_element(By.CLASS_NAME, 'btn.btn_direction').click()
 
-    return HttpResponse(driver.current_url)
+    result_url = driver.current_url
+    driver.quit()
+    return HttpResponse(result_url)
