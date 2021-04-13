@@ -2,9 +2,9 @@ __pycache__/
 *.pyc
 local_settings.py
 
-*.db
-db.sqlite3
-db.sqlite3-journal
+# *.db
+# db.sqlite3
+# db.sqlite3-journal
 
 locale/*/LC_MESSAGES/django.mo
 */locale/*/LC_MESSAGES/django.mo
