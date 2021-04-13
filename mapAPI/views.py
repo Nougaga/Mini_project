@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render, HttpResponse
 
@@ -10,11 +11,15 @@ import time
 import json
 
 
+def redirectToMain(request):
+
+    return redirect('/map/main')
+
+
 def main_test(request):
 
     return render(request, 'mapAPI/main_v2.0.html')
 
-from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def path_search(request):
@@ -27,12 +32,14 @@ def path_search(request):
     options = wd.ChromeOptions()
     options.add_argument('headless')
     options.add_argument('window-size=1920x1080')
-    options.add_argument("disable-gpu") 
+    options.add_argument("disable-gpu")
 
-    driver = wd.Chrome(executable_path='chromedriver.exe', chrome_options=options)
+    driver = wd.Chrome(executable_path='chromedriver.exe',
+                       chrome_options=options)
     #-------------------------------------------------------------------------------
     # //네이버맵 연결
-    driver.get('https://map.naver.com/v5/directions/-/-/-/mode?c=14107103.1786139,4494701.9630842,15,0,0,0,dh')
+    driver.get(
+        'https://map.naver.com/v5/directions/-/-/-/mode?c=14107103.1786139,4494701.9630842,15,0,0,0,dh')
     driver.implicitly_wait(3)
     #-------------------------------------------------------------------------------
 
@@ -41,17 +48,23 @@ def path_search(request):
     #-------------------------------------------------------------------------------
     # //경유지 추가 버튼
     #-------------------------------------------------------------------------------
-    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
-    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
-    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
-    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
-    driver.find_element(By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(
+        By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(
+        By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(
+        By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(
+        By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
+    driver.find_element(
+        By.CLASS_NAME, 'btn.btn_route.ng-star-inserted').click()
     #//리스트값 입력
     click_list = data
     a = len(click_list)
     #------------------------------------------------------------------------------
     # //출발지 입력
-    driver.find_element_by_id('directionStart0').send_keys(data[0]['road_address_name'])
+    driver.find_element_by_id('directionStart0').send_keys(
+        data[0]['road_address_name'])
     time.sleep(0.5)
     driver.find_element_by_id('directionStart0').send_keys(Keys.RETURN)
     time.sleep(0.5)
